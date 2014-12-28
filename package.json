@@ -1,0 +1,28 @@
+{
+  "name": "tessel-web-blast-ir",
+  "version": "0.0.0",
+  "description": "Webserver that interfaces with tessel IR module",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "npm run tessel:build && npm run tessel:run",
+    "test": "mocha",
+    "tessel:build": "rm -rf node_modules && npm install --production",
+    "tessel:run": "tessel run src/web-blast-ir.js"
+  },
+  "keywords": [
+    "tessel",
+    "ir"
+  ],
+  "author": "Doug <douglasdifilippo@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "body": "^4.5.0",
+    "ir-attx4": "^0.2.6",
+    "nodejs-websocket": "^1.1.1"
+  },
+  "devDependencies": {
+    "chai": "^1.10.0",
+    "mocha": "^2.1.0",
+    "sinon": "^1.12.2"
+  }
+}
