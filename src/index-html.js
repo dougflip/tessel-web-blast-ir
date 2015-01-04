@@ -1,43 +1,28 @@
-var socketUrl = require('os').networkInterfaces().en1[0].address;
+var fs = require('fs');
+var path = require('path');
+var os = require('os');
+
+var indexHtmlTemplate = loadIndexHtmlTemplate();
+var socketUrl = getLocalIp();
 var socketPort = 8000;
+var rgxTokens = /\{\{([\w]*)\}\}/g
 
-var indexHtml = [
-'<html>',
-  '<head>',
-    '<title>WebBlastIr</title>',
-    '<style type="text/css">',
-      'body{',
-        'background-color: rgb(245, 74, 66);',
-      '}',
-      '.ir-code{',
-        'width: 50%;',
-        'margin: auto;',
-        'position: relative;',
-        'top: 40%;',
-        'padding: 1em;',
-        'font-size: 1.4rem;',
-        'background-color: #fff;',
-        'border-radius: 5px;',
-        'border: 1px solid #999;',
-        'overflow-wrap: break-word;',
-        'box-shadow: 0 0 24px 12px rgba(0,0,0,.3);'
-      '}',
-    '</style>',
-  '</head>',
-  '<body>',
-    '<div id="irCode" class="ir-code">Waiting for data...</div>',
-    '<script type="text/javascript">',
-      "var socketUrl = '" + socketUrl + "';",
-      "var socketPort = '" + socketPort + "';",
-      "var socket = new WebSocket('ws://' + socketUrl + ':' + socketPort);",
-      "var irCode = document.getElementById('irCode');",
-      'socket.onmessage = function(evt){',
-        'console.log(evt);',
-        'irCode.innerHTML = evt.data;',
-      '}',
-    '</script>',
-  '</body>',
-'</html>'
-].join('');
+function loadIndexHtmlTemplate(){
+  var indexFilePath = path.join(__dirname, '../', 'client', 'index.template.html');
+  return fs.readFileSync(indexFilePath, { encoding: 'UTF8' });
+}
 
-module.exports = indexHtml;
+function getLocalIp(){
+  var interfaces = os.networkInterfaces();
+  var ip = interfaces.en1 ? interfaces.en1[0].address : 'localhost';
+  console.log('Using IP', ip);
+  return ip;
+}
+
+function buildTemplate(template, valueMap){
+  return template.replace(rgxTokens, function(token, match){
+    return valueMap[match] || token;
+  });
+}
+
+module.exports = buildTemplate(indexHtmlTemplate, { socketUrl: socketUrl, socketPort: socketPort });
