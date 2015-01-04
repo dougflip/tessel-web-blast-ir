@@ -8,9 +8,9 @@ var indexHtml = require('./index-html');
 function createServer(port, ir){
   http.createServer(function handleRequest(req, res) {
 
-    console.log('Incoming url of:', req.url);
+    var url = req.url.toString();
 
-    if(req.url === '/'){
+    if(url === '/'){
       console.log('Rendering index html...');
       res.writeHead(200, {'Content-Type': 'text/html'});
       return res.end(indexHtml);
