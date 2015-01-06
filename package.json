@@ -4,9 +4,8 @@
   "description": "Webserver that interfaces with tessel IR module",
   "main": "src/server.js",
   "scripts": {
-    "start": "npm run tessel:build && npm run tessel:run",
+    "start": "node src/web-blast-ir.js",
     "test": "mocha",
-    "start-local": "node src/web-blast-ir.js",
     "tessel:build": "rm -rf node_modules && npm install --production",
     "tessel:run": "tessel run src/web-blast-ir.js"
   },
