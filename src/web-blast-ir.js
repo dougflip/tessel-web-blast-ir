@@ -1,8 +1,12 @@
 'use strict'
 
-var tessel = require('tessel');
-var infraredlib = require('ir-attx4');
-var infrared = infraredlib.use(tessel.port['A']);
+// var tessel = require('tessel');
+// var infraredlib = require('ir-attx4');
+// var infrared = infraredlib.use(tessel.port['A']);
+
+var IrMock = require('./ir-mock')
+var infrared = new IrMock();
+infrared.startSignaling();
 
 var ws = require("nodejs-websocket");
 var socketServer = require('./socket-server');

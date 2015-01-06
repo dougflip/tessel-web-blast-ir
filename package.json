@@ -6,6 +6,7 @@
   "scripts": {
     "start": "npm run tessel:build && npm run tessel:run",
     "test": "mocha",
+    "start-local": "node src/web-blast-ir.js",
     "tessel:build": "rm -rf node_modules && npm install --production",
     "tessel:run": "tessel run src/web-blast-ir.js"
   },

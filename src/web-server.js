@@ -36,16 +36,15 @@ function processIndex(req, res){
 
 function processSingleBlast(req, res, ir){
   return anyBody(req, res, {}, function(err, body){
-    console.log('handling request', body);
     var irSignal = new Buffer(body.signal);
     ir.sendRawSignal(38, irSignal, function(err) {
       if(err){
-        console.log("Error sending signal", err);
+        console.log("Error sending signal to IR", err);
         res.writeHead(500, {'Content-Type': 'text/plain'});
         return res.end('Error while attempting to send IR:', err);
       }
 
-      console.log("Signal sent:", body.signal);
+      console.log("Signal sent over IR:", JSON.stringify(body.signal));
       res.writeHead(204, {'Content-Type': 'text/plain'});
       res.end();
     });

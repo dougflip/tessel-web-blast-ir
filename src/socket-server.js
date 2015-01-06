@@ -9,7 +9,7 @@ function createServer(ws, port, ir){
 }
 
 function onIrData(data){
-  console.log('Sending some data!', data);
+  console.log('Sending data over socket', data);
   connectionManager.sendToAllConnections(data);
 }
 
