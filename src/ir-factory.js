@@ -1,14 +1,15 @@
 'use strict';
 
 var IrMock = require('./ir-mock');
-var tessel = require('tessel');
-var infraredlib = require('ir-attx4');
 
 function createIr(){
   return isLocalDevelopment() ? createIrMock() : createIrAttx4();
 }
 
 function isLocalDevelopment(){
+  if(process.env.NODE_ENV === 'local') return true;
+
+  var tessel = require('tessel');
   return !tessel.port;
 }
 
@@ -19,6 +20,7 @@ function createIrMock(){
 }
 
 function createIrAttx4(){
+  var infraredlib = require('ir-attx4');
   return infraredlib.use(tessel.port['A']);
 }
 

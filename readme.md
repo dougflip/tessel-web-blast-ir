@@ -13,7 +13,7 @@ WebBlastir is designed to provide two IR services for the [Tessel](https://tesse
 ## Running the Application locally
 
 1. `npm install`
-1. `npm start`
+1. `NODE_ENV=local npm start`
 
 This will use a "mock" IR module which will emit data events every 5 seconds.
 Useful for verifying the web and socket server are up and reachable (debugging mostly).
