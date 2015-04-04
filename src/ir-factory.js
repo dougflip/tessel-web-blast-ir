@@ -20,6 +20,7 @@ function createIrMock(){
 }
 
 function createIrAttx4(){
+  var tessel = require('tessel');
   var infraredlib = require('ir-attx4');
   return infraredlib.use(tessel.port['A']);
 }
