@@ -8,7 +8,7 @@ var socketPort = 8000;
 var rgxTokens = /\{\{([\w]*)\}\}/g
 
 function loadIndexHtmlTemplate(){
-  var indexFilePath = path.join(__dirname, '../', 'client', 'index.template.html');
+  var indexFilePath = path.join(__dirname, 'index.template.html');
   return fs.readFileSync(indexFilePath, { encoding: 'UTF8' });
 }
 
