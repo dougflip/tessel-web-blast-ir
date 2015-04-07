@@ -25,6 +25,4 @@ function createIrAttx4(){
   return infraredlib.use(tessel.port['A']);
 }
 
-module.exports = {
-  createIr: createIr
-};
+module.exports = { createIr };

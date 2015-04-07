@@ -4,10 +4,14 @@
   "description": "Webserver that interfaces with tessel IR module",
   "main": "src/server.js",
   "scripts": {
-    "start": "node src/web-blast-ir.js",
-    "test": "mocha",
-    "tessel:build": "rm -rf node_modules && npm install --production",
-    "tessel:run": "tessel run src/web-blast-ir.js"
+    "build:js": "babel src --out-dir dist",
+    "build:html": "cp src/index.template.html dist/index.template.html",
+    "build:tests": "babel test/src --out-dir test/dist",
+    "build": "npm run build:js && npm run build:html",
+    "tessel:prepare": "npm run build && rm -rf node_modules && npm install --production",
+    "tessel:run": "tessel run dist/web-blast-ir.js",
+    "start": "npm run build && node dist/web-blast-ir.js",
+    "test": "npm run build:tests && mocha test/dist"
   },
   "keywords": [
     "tessel",
@@ -18,9 +22,10 @@
   "dependencies": {
     "body": "^4.5.0",
     "ir-attx4": "^0.2.6",
-    "nodejs-websocket": "^1.1.1"
+    "nodejs-websocket": "^1.2.1"
   },
   "devDependencies": {
+    "babel": "^5.0.8",
     "chai": "^1.10.0",
     "mocha": "^2.1.0",
     "sinon": "^1.12.2"

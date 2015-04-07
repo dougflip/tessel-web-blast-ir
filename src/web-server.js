@@ -1,11 +1,10 @@
 'use strict'
 
-var http = require('http');
-var anyBody = require('body/any');
+const http = require('http');
+const anyBody = require('body/any');
+const indexHtml = require('./index-html');
 
-var indexHtml = require('./index-html');
-
-var routeMap = {
+const routeMap = {
   '/': processIndex,
   '/single-blast': processSingleBlast
 };
@@ -18,7 +17,7 @@ function buildRequestHandler(ir){
   return function blastirRequestHandler(req, res){
     var url = req.url.toString();
     var handler = routeMap[url] || processNotFound;
-    return handler(req, res, ir); 
+    return handler(req, res, ir);
   }
 }
 
@@ -37,9 +36,9 @@ function processIndex(req, res){
 function processSingleBlast(req, res, ir){
   return anyBody(req, res, {}, function(err, body){
     var irSignal = new Buffer(body.signal);
-    ir.sendRawSignal(38, irSignal, function(err) {
+    ir.sendRawSignal(38, irSignal, (err) => {
       if(err){
-        console.log("Error sending signal to IR", err);
+        console.error("Error sending signal to IR", err);
         res.writeHead(500, {'Content-Type': 'text/plain'});
         return res.end('Error while attempting to send IR:', err);
       }
@@ -51,6 +50,4 @@ function processSingleBlast(req, res, ir){
   });
 }
 
-module.exports = {
-  createServer: createServer
-}
+module.exports = { createServer }

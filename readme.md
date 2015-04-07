@@ -31,7 +31,8 @@ The next section shows you how to get the code deployed on the Tessel.
 
 ## Running the Application on the Tessel
 
-1. `npm run tessel:build` - removes node_modules and re-installs with --production flag (to minimize file size)
+1. `npm install` (if you didn't do this above)
+1. `npm run tessel:prepare` - removes node_modules and re-installs with --production flag (to minimize file size)
 1. `npm run tessel:run` - runs the code on the Tessel board (tessel run)
 
 As above, you should be able to hit the client page, but this time served from your Tessel:
@@ -48,4 +49,5 @@ curl -X POST -H "Content-Type: application/json" -d '{ "signal": [3,182,252,224,
 
 ## Unit Tests
 
+1. `npm install` (if you didn't do this above)
 1. `npm test`

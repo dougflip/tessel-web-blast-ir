@@ -1,7 +1,7 @@
 'use strict'
 
-var ConnectionManager = require('./connection-manager');
-var connectionManager = new ConnectionManager();
+const ConnectionManager = require('./connection-manager');
+const connectionManager = new ConnectionManager();
 
 function createServer(ws, port, ir){
   ir.on('data', onIrData);
@@ -16,6 +16,7 @@ function onIrData(data){
 function onNewClient(conn){
   connectionManager.addConnection(conn);
   conn.on('close', createConnectionCloseHandler(conn))
+  conn.on('error', (err) => console.error('WebSocket error:', err));
 }
 
 function createConnectionCloseHandler(conn){
@@ -24,6 +25,4 @@ function createConnectionCloseHandler(conn){
   }
 }
 
-module.exports = {
-  createServer: createServer
-};
+module.exports = { createServer };

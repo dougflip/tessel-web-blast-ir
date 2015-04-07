@@ -1,29 +1,30 @@
 'use strict';
 
-var util = require('util');
-var events = require('events');
+const util = require('util');
+const events = require('events');
 
-function IrMock(){
-  this.signalId = 0;
+class IrMock extends events.EventEmitter {
+  constructor(){
+    super();
+    this.signalId = 0;
+  }
+
+  sendRawSignal(freq, code, cb){
+    cb(null);
+  }
+
+  emitData(data = [getRandomCode(), getRandomCode()]){
+    this.emit('data', data);
+  }
+
+  startSignaling(interval){
+    this.signalId = setInterval(this.emitData.bind(this), interval || 5000);
+  }
+
+  stopSignaling(){
+    clearInrerval(this.signalId);
+  };
 }
-util.inherits(IrMock, events.EventEmitter);
-
-IrMock.prototype.sendRawSignal = function(freq, code, cb){
-  cb(null);
-};
-
-IrMock.prototype.emitData = function(data){
-  data = data || [getRandomCode(), getRandomCode()];
-  this.emit('data', data);
-};
-
-IrMock.prototype.startSignaling = function(interval){
-  this.signalId = setInterval(this.emitData.bind(this), interval || 5000);
-};
-
-IrMock.prototype.stopSignaling = function(){
-  clearInrerval(this.signalId);
-};
 
 function getRandomCode(){
   return Math.floor(Math.random() * 255);

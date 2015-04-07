@@ -1,11 +1,9 @@
-var fs = require('fs');
-var path = require('path');
-var os = require('os');
+const fs = require('fs');
+const path = require('path');
+const os = require('os');
 
-var indexHtmlTemplate = loadIndexHtmlTemplate();
-var socketUrl = getLocalIp();
-var socketPort = 8000;
-var rgxTokens = /\{\{([\w]*)\}\}/g
+const socketPort = 8000;
+const rgxTokens = /\{\{([\w]*)\}\}/g
 
 function loadIndexHtmlTemplate(){
   var indexFilePath = path.join(__dirname, 'index.template.html');
@@ -25,4 +23,4 @@ function buildTemplate(template, valueMap){
   });
 }
 
-module.exports = buildTemplate(indexHtmlTemplate, { socketUrl: socketUrl, socketPort: socketPort });
+module.exports = buildTemplate(loadIndexHtmlTemplate(), { socketUrl: getLocalIp(), socketPort: socketPort });

@@ -5,7 +5,7 @@ var sinon = require('sinon');
 
 describe('ConnectionManager', function(){
 
-  var ConnectionManager = require('../src/connection-manager');
+  var ConnectionManager = require('../../dist/connection-manager');
   var sut, conn1, conn2;
 
   beforeEach(function(){
@@ -15,7 +15,7 @@ describe('ConnectionManager', function(){
   });
 
   describe('addConnection', function(){
-    
+
     it('should add a new connection', function(){
       sut.addConnection({});
       sut.addConnection({});
